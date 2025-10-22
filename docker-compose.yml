@@ -1,0 +1,58 @@
+# docker-compose.yml - Orquestación de servicios
+# TODO: completar en el hito H0.1.2
+version: "3.9"
+
+services:
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: lurraldea-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - lurraldea_net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: lurraldea-backend
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${BACKEND_PORT}:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+    networks:
+      - lurraldea_net
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lurraldea-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT}:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+    networks:
+      - lurraldea_net
+    command: npm run dev -- --host
+
+volumes:
+  db_data:
+
+networks:
+  lurraldea_net:
