@@ -1,0 +1,1484 @@
+{
+  "project": {
+    "name": "Sistema de Inventario Inteligente de Terrenos Agrarios y Forestales",
+    "short_name": "lurmap",
+    "version": "1.0.0",
+    "start_date": "2025-10-19",
+    "last_updated": "2025-10-19",
+    "status": "planning",
+    "current_phase": "phase_0",
+    "current_week": 1,
+    "repository": {
+      "url": "",
+      "visibility": "private",
+      "license": "EUPL-1.2"
+    }
+  },
+  "team": {
+    "technical_lead": {
+      "name": "[IA Assistant]",
+      "role": "CTO Virtual",
+      "responsibilities": [
+        "Desarrollo backend/frontend",
+        "Arquitectura sistemas",
+        "Algoritmos IA/ML",
+        "Documentación técnica"
+      ]
+    },
+    "institutional_lead": {
+      "name": "[Tu nombre]",
+      "role": "Director Proyecto",
+      "responsibilities": [
+        "Networking institucional",
+        "Gestión subvenciones",
+        "Reuniones stakeholders",
+        "Validación campo"
+      ]
+    }
+  },
+  "stack": {
+    "backend": {
+      "language": "Python 3.11+",
+      "framework": "FastAPI",
+      "database": "PostgreSQL 15 + PostGIS 3.4",
+      "geoprocessing": [
+        "GDAL 3.7+",
+        "Rasterio 1.3+",
+        "GeoPandas 0.14+",
+        "Shapely 2.0+"
+      ],
+      "queues": "Celery + Redis",
+      "ml": [
+        "Scikit-learn",
+        "XGBoost",
+        "NumPy"
+      ],
+      "containers": "Docker + Docker Compose"
+    },
+    "frontend": {
+      "framework": "Vue.js 3.4 + TypeScript",
+      "maps": "MapLibre GL JS 4.0",
+      "geo_manipulation": "Turf.js",
+      "ui_components": "PrimeVue",
+      "styles": "Tailwind CSS",
+      "charts": "Chart.js",
+      "build": "Vite"
+    },
+    "map_server": {
+      "primary": "GeoServer 2.24+",
+      "formats": ["WMS", "WFS", "WCS"],
+      "storage": ["MBTiles", "COG"],
+      "cache": "MapProxy (optional)"
+    },
+    "infrastructure": {
+      "development": "Docker Compose (local)",
+      "ci_cd": "GitHub Actions",
+      "testing": "pytest + pytest-cov",
+      "documentation": "MkDocs + Material theme"
+    }
+  },
+  "data_sources": {
+    "catastro": {
+      "api_rest": "https://ovc.catastro.meh.es/",
+      "wfs_inspire": "https://www.catastro.minhap.es/webinspire/",
+      "status": "available"
+    },
+    "satellite": {
+      "sentinel_2": {
+        "provider": "ESA Copernicus",
+        "resolution": "10m",
+        "url": "https://scihub.copernicus.eu/",
+        "status": "available"
+      },
+      "landsat": {
+        "provider": "USGS",
+        "resolution": "30m",
+        "url": "https://earthexplorer.usgs.gov/",
+        "status": "available"
+      }
+    },
+    "lidar": {
+      "pnoa": {
+        "url": "https://pnoa.ign.es/",
+        "status": "available"
+      },
+      "cnig": {
+        "url": "https://centrodedescargas.cnig.es/",
+        "status": "available"
+      }
+    },
+    "base_cartography": {
+      "openstreetmap": {
+        "status": "available"
+      },
+      "geoeuskadi": {
+        "url": "https://www.geo.euskadi.eus/",
+        "status": "available"
+      }
+    }
+  },
+  "phases": [
+    {
+      "id": "phase_0",
+      "name": "Preparación",
+      "weeks": [1, 2, 3, 4],
+      "start_week": 1,
+      "end_week": 4,
+      "status": "not_started",
+      "objectives": [
+        "Fundamentos técnicos operativos",
+        "Contactos iniciales establecidos",
+        "Material demo básico preparado"
+      ],
+      "success_criteria": {
+        "technical": [
+          "Repositorio operativo con CI/CD",
+          "Base de datos con parcelas piloto cargadas",
+          "Algoritmo clasificación básico funcionando",
+          "Mapa visualización operativo"
+        ],
+        "institutional": [
+          "3+ contactos técnicos identificados",
+          "1+ conversación informal realizada",
+          "Convocatorias relevantes listadas",
+          "Presentación ejecutiva preparada"
+        ]
+      },
+      "weeks_detail": [
+        {
+          "week": 1,
+          "name": "Fundamentos",
+          "milestones": [
+            {
+              "id": "H0.1.1",
+              "title": "Repositorio GitHub configurado",
+              "type": "technical",
+              "owner": "technical_lead",
+              "priority": "critical",
+              "estimated_hours": 4,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": [],
+              "subtasks": [
+                {
+                  "id": "H0.1.1.1",
+                  "description": "Crear repo con estructura directorios",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.1.2",
+                  "description": "README.md básico con visión proyecto",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.1.3",
+                  "description": "Configurar .gitignore Python + Node.js",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.1.4",
+                  "description": "Añadir licencia EUPL 1.2",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            },
+            {
+              "id": "H0.1.2",
+              "title": "Entorno desarrollo local Docker",
+              "type": "technical",
+              "owner": "technical_lead",
+              "priority": "critical",
+              "estimated_hours": 6,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.1.1"],
+              "subtasks": [
+                {
+                  "id": "H0.1.2.1",
+                  "description": "docker-compose.yml con PostgreSQL+PostGIS",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.2.2",
+                  "description": "Servicio backend FastAPI base",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.2.3",
+                  "description": "Servicio frontend Vue.js base",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.2.4",
+                  "description": "Script 'make start' funcional",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            },
+            {
+              "id": "H0.1.3",
+              "title": "Selección municipio piloto",
+              "type": "hybrid",
+              "owner": "institutional_lead",
+              "priority": "high",
+              "estimated_hours": 3,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": [],
+              "subtasks": [
+                {
+                  "id": "H0.1.3.1",
+                  "description": "Definir criterios selección (500-2000 parcelas)",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.3.2",
+                  "description": "Identificar municipio candidato",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.3.3",
+                  "description": "Descargar shapefile límite municipal",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.3.4",
+                  "description": "Recopilar lista referencias catastrales",
+                  "completed": false
+                }
+              ],
+              "notes": "Municipio candidato: [RELLENAR]"
+            },
+            {
+              "id": "H0.1.4",
+              "title": "Mapeo inicial de contactos",
+              "type": "institutional",
+              "owner": "institutional_lead",
+              "priority": "high",
+              "estimated_hours": 4,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": [],
+              "subtasks": [
+                {
+                  "id": "H0.1.4.1",
+                  "description": "Identificar 10 perfiles LinkedIn en Diputaciones",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.4.2",
+                  "description": "Mapear departamentos: Medio Ambiente, Agricultura, Rural",
+                  "completed": false
+                },
+                {
+                  "id": "H0.1.4.3",
+                  "description": "Crear hoja cálculo seguimiento contactos",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "name": "Arquitectura Inicial",
+          "milestones": [
+            {
+              "id": "H0.2.1",
+              "title": "Esquema base de datos",
+              "type": "technical",
+              "owner": "technical_lead",
+              "priority": "critical",
+              "estimated_hours": 6,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.1.2"],
+              "subtasks": [
+                {
+                  "id": "H0.2.1.1",
+                  "description": "Tabla 'parcelas' con geometría PostGIS",
+                  "completed": false
+                },
+                {
+                  "id": "H0.2.1.2",
+                  "description": "Tabla 'clasificaciones' con taxonomía",
+                  "completed": false
+                },
+                {
+                  "id": "H0.2.1.3",
+                  "description": "Tabla 'analisis' con resultados temporales",
+                  "completed": false
+                },
+                {
+                  "id": "H0.2.1.4",
+                  "description": "Scripts migración Alembic",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            },
+            {
+              "id": "H0.2.2",
+              "title": "API REST básica",
+              "type": "technical",
+              "owner": "technical_lead",
+              "priority": "critical",
+              "estimated_hours": 8,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.2.1"],
+              "subtasks": [
+                {
+                  "id": "H0.2.2.1",
+                  "description": "Endpoint /parcelas (CRUD)",
+                  "completed": false
+                },
+                {
+                  "id": "H0.2.2.2",
+                  "description": "Endpoint /clasificaciones (lectura)",
+                  "completed": false
+                },
+                {
+                  "id": "H0.2.2.3",
+                  "description": "Documentación automática Swagger",
+                  "completed": false
+                },
+                {
+                  "id": "H0.2.2.4",
+                  "description": "Tests unitarios básicos (>80% cobertura)",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            },
+            {
+              "id": "H0.2.3",
+              "title": "Integración catastro",
+              "type": "technical",
+              "owner": "technical_lead",
+              "priority": "high",
+              "estimated_hours": 8,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.1.3", "H0.2.1"],
+              "subtasks": [
+                {
+                  "id": "H0.2.3.1",
+                  "description": "Script descarga WFS parcelas municipio piloto",
+                  "completed": false
+                },
+                {
+                  "id": "H0.2.3.2",
+                  "description": "Carga en PostGIS con transformación CRS",
+                  "completed": false
+                },
+                {
+                  "id": "H0.2.3.3",
+                  "description": "Validación geometrías (topología correcta)",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            },
+            {
+              "id": "H0.2.4",
+              "title": "Investigación convocatorias",
+              "type": "institutional",
+              "owner": "institutional_lead",
+              "priority": "medium",
+              "estimated_hours": 4,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": [],
+              "subtasks": [
+                {
+                  "id": "H0.2.4.1",
+                  "description": "Listar 5 convocatorias potenciales",
+                  "completed": false
+                },
+                {
+                  "id": "H0.2.4.2",
+                  "description": "Documentar fechas límite y requisitos básicos",
+                  "completed": false
+                },
+                {
+                  "id": "H0.2.4.3",
+                  "description": "Crear plantilla Excel seguimiento convocatorias",
+                  "completed": false
+                }
+              ],
+              "notes": "Fuentes: Diputaciones, GV, FEADER"
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "name": "Primeros Algoritmos",
+          "milestones": [
+            {
+              "id": "H0.3.1",
+              "title": "Descarga imágenes Sentinel-2",
+              "type": "technical",
+              "owner": "technical_lead",
+              "priority": "high",
+              "estimated_hours": 6,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.1.3"],
+              "subtasks": [
+                {
+                  "id": "H0.3.1.1",
+                  "description": "Script Python con Sentinelsat",
+                  "completed": false
+                },
+                {
+                  "id": "H0.3.1.2",
+                  "description": "Descarga escena municipio piloto (última 6 meses)",
+                  "completed": false
+                },
+                {
+                  "id": "H0.3.1.3",
+                  "description": "Almacenamiento en /data/sentinel",
+                  "completed": false
+                }
+              ],
+              "notes": "Requiere cuenta Copernicus (gratuita)"
+            },
+            {
+              "id": "H0.3.2",
+              "title": "Cálculo NDVI básico",
+              "type": "technical",
+              "owner": "technical_lead",
+              "priority": "critical",
+              "estimated_hours": 8,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.3.1", "H0.2.3"],
+              "subtasks": [
+                {
+                  "id": "H0.3.2.1",
+                  "description": "Función calcular_ndvi(red_band, nir_band)",
+                  "completed": false
+                },
+                {
+                  "id": "H0.3.2.2",
+                  "description": "Rasterización sobre parcelas",
+                  "completed": false
+                },
+                {
+                  "id": "H0.3.2.3",
+                  "description": "Exportación GeoTIFF + estadísticas por parcela",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            },
+            {
+              "id": "H0.3.3",
+              "title": "Clasificación binaria v0.1",
+              "type": "technical",
+              "owner": "technical_lead",
+              "priority": "high",
+              "estimated_hours": 6,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.3.2"],
+              "subtasks": [
+                {
+                  "id": "H0.3.3.1",
+                  "description": "Algoritmo umbral NDVI (activo/abandonado)",
+                  "completed": false
+                },
+                {
+                  "id": "H0.3.3.2",
+                  "description": "Criterio: NDVI < 0.3 = sospechoso abandono",
+                  "completed": false
+                },
+                {
+                  "id": "H0.3.3.3",
+                  "description": "Test con 100 parcelas muestra",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            },
+            {
+              "id": "H0.3.4",
+              "title": "Primera toma de contacto",
+              "type": "institutional",
+              "owner": "institutional_lead",
+              "priority": "high",
+              "estimated_hours": 3,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.1.4"],
+              "subtasks": [
+                {
+                  "id": "H0.3.4.1",
+                  "description": "Email/LinkedIn a 3 técnicos de perfil medio",
+                  "completed": false
+                },
+                {
+                  "id": "H0.3.4.2",
+                  "description": "Mensaje: presentación + pregunta pain points",
+                  "completed": false
+                },
+                {
+                  "id": "H0.3.4.3",
+                  "description": "Registrar respuestas en tracking",
+                  "completed": false
+                }
+              ],
+              "notes": "Objetivo: conversación informal, NO venta"
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "name": "Material Demo",
+          "milestones": [
+            {
+              "id": "H0.4.1",
+              "title": "Frontend mapa básico",
+              "type": "technical",
+              "owner": "technical_lead",
+              "priority": "critical",
+              "estimated_hours": 10,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.2.2", "H0.3.3"],
+              "subtasks": [
+                {
+                  "id": "H0.4.1.1",
+                  "description": "MapLibre con capa base OpenStreetMap",
+                  "completed": false
+                },
+                {
+                  "id": "H0.4.1.2",
+                  "description": "Carga parcelas municipio desde API",
+                  "completed": false
+                },
+                {
+                  "id": "H0.4.1.3",
+                  "description": "Popup info básica al click",
+                  "completed": false
+                },
+                {
+                  "id": "H0.4.1.4",
+                  "description": "Color según clasificación preliminar",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            },
+            {
+              "id": "H0.4.2",
+              "title": "Exportación informe PDF",
+              "type": "technical",
+              "owner": "technical_lead",
+              "priority": "high",
+              "estimated_hours": 6,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.3.3"],
+              "subtasks": [
+                {
+                  "id": "H0.4.2.1",
+                  "description": "Configurar librería ReportLab",
+                  "completed": false
+                },
+                {
+                  "id": "H0.4.2.2",
+                  "description": "Informe municipio: mapa + estadísticas",
+                  "completed": false
+                },
+                {
+                  "id": "H0.4.2.3",
+                  "description": "Plantilla trilingüe (euskera/castellano)",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            },
+            {
+              "id": "H0.4.3",
+              "title": "Presentación ejecutiva",
+              "type": "institutional",
+              "owner": "institutional_lead",
+              "priority": "critical",
+              "estimated_hours": 6,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.4.1"],
+              "subtasks": [
+                {
+                  "id": "H0.4.3.1",
+                  "description": "Deck 10 slides (Problema, Solución, Demo, Próximos pasos)",
+                  "completed": false
+                },
+                {
+                  "id": "H0.4.3.2",
+                  "description": "Versión PDF + Canva/PowerPoint editable",
+                  "completed": false
+                },
+                {
+                  "id": "H0.4.3.3",
+                  "description": "Script de presentación 5 minutos",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            },
+            {
+              "id": "H0.4.4",
+              "title": "Video demo 2 minutos",
+              "type": "institutional",
+              "owner": "institutional_lead",
+              "priority": "medium",
+              "estimated_hours": 4,
+              "completed": false,
+              "completion_date": null,
+              "blockers": [],
+              "dependencies": ["H0.4.1"],
+              "subtasks": [
+                {
+                  "id": "H0.4.4.1",
+                  "description": "Screen recording funcionalidad básica",
+                  "completed": false
+                },
+                {
+                  "id": "H0.4.4.2",
+                  "description": "Narración euskera + subtítulos castellano",
+                  "completed": false
+                },
+                {
+                  "id": "H0.4.4.3",
+                  "description": "Publicar en YouTube (no listado)",
+                  "completed": false
+                }
+              ],
+              "notes": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_1",
+      "name": "Desarrollo MVP",
+      "weeks": [5, 6, 7, 8, 9, 10, 11, 12],
+      "start_week": 5,
+      "end_week": 12,
+      "status": "not_started",
+      "objectives": [
+        "Clasificador multicriterio >75% precisión",
+        "Interfaz trilingüe completa",
+        "Documentación técnica publicada"
+      ],
+      "success_criteria": {
+        "technical": [
+          "Clasificación multicriterio >75% precisión",
+          "Interfaz trilingüe completa",
+          "Informes PDF generables",
+          "Tests automatizados funcionando",
+          "Documentación técnica publicada"
+        ],
+        "institutional": [
+          "5+ conversaciones con técnicos",
+          "Feedback documentado y priorizado",
+          "Pain points identificados claramente",
+          "1+ demo presencial realizada"
+        ]
+      },
+      "weeks_detail": []
+    },
+    {
+      "id": "phase_2",
+      "name": "Validación",
+      "weeks": [13, 14, 15, 16],
+      "start_week": 13,
+      "end_week": 16,
+      "status": "not_started",
+      "objectives": [
+        "Producto refinado según feedback real",
+        "Material subvención completo",
+        "2+ cartas apoyo conseguidas"
+      ],
+      "success_criteria": {
+        "technical": [
+          "Features críticas implementadas",
+          "Casos de uso documentados",
+          "Memoria técnica completa"
+        ],
+        "institutional": [
+          "2+ reuniones nivel decisor",
+          "2+ cartas apoyo conseguidas",
+          "Campeón interno identificado",
+          "Presupuesto validado con técnicos"
+        ]
+      },
+      "weeks_detail": []
+    },
+    {
+      "id": "phase_3",
+      "name": "Financiación",
+      "weeks": [17, 18, 19, 20, 21, 22, 23, 24],
+      "start_week": 17,
+      "end_week": 24,
+      "status": "not_started",
+      "objectives": [
+        "1+ propuesta subvención presentada",
+        "3+ reuniones nivel decisor realizadas",
+        "Plan contingencia definido"
+      ],
+      "success_criteria": {
+        "technical": [
+          "Material audiovisual profesional",
+          "Propuesta técnica personalizada"
+        ],
+        "institutional": [
+          "1+ propuesta formal presentada",
+          "3+ reuniones presentación realizadas",
+          "Feedback oficial recibido",
+          "Plan B definido"
+        ]
+      },
+      "weeks_detail": []
+    },
+    {
+      "id": "phase_4",
+      "name": "Implementación",
+      "weeks": [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36],
+      "start_week": 25,
+      "end_week": 36,
+      "status": "not_started",
+      "objectives": [
+        "Piloto en producción operativo",
+        "Usuarios reales utilizando sistema",
+        "Código publicado open source"
+      ],
+      "success_criteria": {
+        "technical": [
+          "Sistema en producción estable",
+          "Usuarios reales operando",
+          "Código open source publicado",
+          "Bugs críticos <5% reportes"
+        ],
+        "institutional": [
+          "Contrato firmado / subvención concedida",
+          "Formación usuarios completada",
+          "Caso éxito documentado",
+          "Réplica a otra institución en conversación"
+        ]
+      },
+      "weeks_detail": []
+    }
+  ],
+  "contacts": {
+    "institutions": [
+      {
+        "name": "Diputación Foral de Bizkaia",
+        "priority": "high",
+        "departments": [
+          {
+            "name": "Medio Ambiente",
+            "contacts": []
+          },
+          {
+            "name": "Agricultura",
+            "contacts": []
+          },
+          {
+            "name": "Desarrollo Rural",
+            "contacts": []
+          }
+        ]
+      },
+      {
+        "name": "Diputación Foral de Araba",
+        "priority": "medium",
+        "departments": [
+          {
+            "name": "Medio Ambiente",
+            "contacts": []
+          },
+          {
+            "name": "Agricultura",
+            "contacts": []
+          }
+        ]
+      },
+      {
+        "name": "Diputación Foral de Gipuzkoa",
+        "priority": "medium",
+        "departments": [
+          {
+            "name": "Medio Ambiente",
+            "contacts": []
+          },
+          {
+            "name": "Agricultura",
+            "contacts": []
+          }
+        ]
+      }
+    ],
+    "template_initial_contact": "Kaixo [Nombre],\n\nHe visto tu perfil/trabajo en [contexto] relacionado con gestión territorial/agricultura en [Diputación]. Estoy desarrollando una herramienta open source para inventariar terrenos agrarios y forestales subutilizados, algo que me comentaron podría ser de interés para [departamento].\n\n¿Tendrías 20-30 minutos para una conversación informal? Me gustaría entender mejor los retos que afrontáis y mostrarte un prototipo muy inicial.\n\nEskerrik asko,\n[Tu nombre]\n[LinkedIn / Email / Teléfono]"
+  },
+  "risks": [
+    {
+      "id": "R01",
+      "description": "Datos públicos inaccesibles o baja calidad",
+      "probability": "medium",
+      "impact": "high",
+      "mitigation": "Múltiples fuentes, algoritmos limpieza, validación manual muestra",
+      "status": "monitoring"
+    },
+    {
+      "id": "R02",
+      "description": "Resistencia adopción por técnicos",
+      "probability": "medium",
+      "impact": "high",
+      "mitigation": "Validación temprana, involucrar en diseño, formación intensiva",
+      "status": "monitoring"
+    },
+    {
+      "id": "R03",
+      "description": "Plazos convocatorias no alineados",
+      "probability": "high",
+      "impact": "medium",
+      "mitigation": "Paralelizar varias convocatorias, plan B autofinanciado",
+      "status": "monitoring"
+    },
+    {
+      "id": "R04",
+      "description": "Cambios políticos/presupuestarios",
+      "probability": "medium",
+      "impact": "high",
+      "mitigation": "Código open source (supervivencia proyecto), múltiples clientes potenciales",
+      "status": "monitoring"
+    },
+    {
+      "id": "R05",
+      "description": "Complejidad técnica subestimada",
+      "probability": "medium",
+      "impact": "medium",
+      "mitigation": "MVP incremental, revisión arquitectura continua, buffer 20% horas",
+      "status": "monitoring"
+    },
+    {
+      "id": "R06",
+      "description": "Competencia soluciones privadas",
+      "probability": "low",
+      "impact": "medium",
+      "mitigation": "Enfatizar transparencia, soberanía datos, coste total propiedad",
+      "status": "monitoring"
+    },
+    {
+      "id": "R07",
+      "description": "Restricciones IT corporativas",
+      "probability": "high",
+      "impact": "high",
+      "mitigation": "Diseño portable, múltiples opciones despliegue, documentación compliance",
+      "status": "monitoring"
+    },
+    {
+      "id": "R08",
+      "description": "Falta de conocimiento dominio",
+      "probability": "medium",
+      "impact": "medium",
+      "mitigation": "Consulta expertos agrarios/forestales, literatura científica, validación campo",
+      "status": "monitoring"
+    }
+  ],
+  "budget": {
+    "mvp_development": {
+      "total": 52700,
+      "currency": "EUR",
+      "breakdown": {
+        "backend_development": {
+          "hours": 300,
+          "rate": 50,
+          "total": 15000
+        },
+        "frontend_development": {
+          "hours": 250,
+          "rate": 50,
+          "total": 12500
+        },
+        "ml_algorithms": {
+          "hours": 150,
+          "rate": 60,
+          "total": 9000
+        },
+        "geo_integration": {
+          "hours": 100,
+          "rate": 55,
+          "total": 5500
+        },
+        "testing_qa": {
+          "hours": 80,
+          "rate": 45,
+          "total": 3600
+        },
+        "technical_documentation": {
+          "hours": 60,
+          "rate": 45,
+          "total": 2700
+        },
+        "ui_ux_design": {
+          "hours": 40,
+          "rate": 50,
+          "total": 2000
+        },
+        "project_management": {
+          "hours": 60,
+          "rate": 40,
+          "total": 2400
+        }
+      }
+    },
+    "infrastructure_year_1": {
+      "total": 1950,
+      "currency": "EUR",
+      "breakdown": {
+        "development_server": 1200,
+        "data_storage": 600,
+        "domain_ssl": 150,
+        "ci_cd_tools": 0
+      }
+    },
+    "pilot_implementation": {
+      "total": 20050,
+      "currency": "EUR",
+      "breakdown": {
+        "infrastructure_deployment": 2200,
+        "data_loading": 3000,
+        "system_integration": 4800,
+        "user_training": 1000,
+        "post_launch_support": 2700,
+        "client_documentation": 1350,
+        "improvements_feedback": 5000
+      }
+    },
+    "annual_maintenance": {
+      "total": 7200,
+      "currency": "EUR",
+      "breakdown": {
+        "production_server": 2400,
+        "backups_storage": 800,
+        "monitoring_logs": 400,
+        "updates_maintenance": 3600
+      }
+    },
+    "summary": {
+      "year_1_total": 81900,
+      "subsequent_years_estimate": 15000,
+      "contingency_buffer": "15-20%"
+    }
+  },
+  "kpis": {
+    "technical": {
+      "development": {
+        "test_coverage": {
+          "target": 85,
+          "unit": "percentage",
+          "current": 0
+        },
+        "ci_build_time": {
+          "target": 5,
+          "unit": "minutes",
+          "current": null
+        },
+        "velocity": {
+          "target": 10,
+          "unit": "story_points_per_week",
+          "current": 0
+        }
+      },
+      "performance": {
+        "classification_time_1000_parcels": {
+          "target": 24,
+          "unit": "hours",
+          "current": null
+        },
+        "map_load_time_1000_parcels": {
+          "target": 3,
+          "unit": "seconds",
+          "current": null
+        },
+        "system_availability": {
+          "target": 99.5,
+          "unit": "percentage",
+          "current": null
+        }
+      },
+      "data_quality": {
+        "classification_accuracy": {
+          "target": 85,
+          "unit": "percentage",
+          "current": 0
+        },
+        "geometric_errors": {
+          "target": 2,
+          "unit": "percentage_max",
+          "current": null
+        },
+        "data_completeness": {
+          "target": 90,
+          "unit": "percentage",
+          "current": 0
+        }
+      }
+    },
+    "institutional": {
+      "validation": {
+        "technical_conversations": {
+          "target": 5,
+          "unit": "count",
+          "current": 0,
+          "phase": "phase_1"
+        },
+        "nps_score": {
+          "target": 7,
+          "unit": "score_out_of_10",
+          "current": null,
+          "phase": "phase_1"
+        },
+        "decision_maker_meetings": {
+          "target": 2,
+          "unit": "count",
+          "current": 0,
+          "phase": "phase_2"
+        }
+      },
+      "funding": {
+        "proposals_submitted": {
+          "target": 1,
+          "unit": "count",
+          "current": 0,
+          "phase": "phase_3"
+        },
+        "meeting_to_support_letter_rate": {
+          "target": 40,
+          "unit": "percentage",
+          "current": null,
+          "phase": "phase_3"
+        }
+      },
+      "adoption": {
+        "monthly_active_users": {
+          "target": 5,
+          "unit": "count",
+          "current": 0,
+          "phase": "phase_4"
+        },
+        "parcels_analyzed_cumulative": {
+          "target": 10000,
+          "unit": "count",
+          "current": 0,
+          "phase": "phase_4"
+        },
+        "reports_generated_monthly": {
+          "target": 20,
+          "unit": "count",
+          "current": 0,
+          "phase": "phase_4"
+        },
+        "user_retention_3months": {
+          "target": 70,
+          "unit": "percentage",
+          "current": null,
+          "phase": "phase_4"
+        }
+      }
+    }
+  },
+  "decisions": [
+    {
+      "id": "ADR-001",
+      "title": "Licencia EUPL 1.2",
+      "date": "2025-10-19",
+      "context": "Elegir licencia open source",
+      "decision": "EUPL 1.2 (European Union Public Licence)",
+      "rationale": [
+        "Copyleft fuerte (como AGPL)",
+        "Compatible con legislación UE",
+        "Multilingüe (versiones oficiales en euskera)",
+        "Adoptada por administraciones públicas europeas"
+      ],
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-002",
+      "title": "MapLibre vs Mapbox",
+      "date": "2025-10-19",
+      "context": "Librería visualización mapas",
+      "decision": "MapLibre GL JS",
+      "rationale": [
+        "Open source (fork Mapbox pre-licencia restrictiva)",
+        "Sin vendor lock-in",
+        "Comunidad activa",
+        "Compatible con vector tiles estándar"
+      ],
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-003",
+      "title": "GeoServer vs MapServer",
+      "date": "2025-10-19",
+      "context": "Servidor mapas backend",
+      "decision": "GeoServer",
+      "rationale": [
+        "GUI administración web",
+        "Mejor soporte WMS/WFS/WCS",
+        "Comunidad más grande",
+        "Integración PostgreSQL/PostGIS sencilla"
+      ],
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-004",
+      "title": "Vue.js vs React",
+      "date": "2025-10-19",
+      "context": "Framework frontend",
+      "decision": "Vue.js 3",
+      "rationale": [
+        "Curva aprendizaje suave",
+        "Excelente soporte i18n nativo",
+        "Documentación en castellano",
+        "Ecosistema maduro para aplicaciones empresariales"
+      ],
+      "status": "accepted"
+    }
+  ],
+  "glossary": {
+    "euskera_castellano_english": [
+      {
+        "eu": "Lursaila",
+        "es": "Parcela",
+        "en": "Plot",
+        "definition": "Unidad mínima de territorio catastral"
+      },
+      {
+        "eu": "Utzita",
+        "es": "Abandonado",
+        "en": "Abandoned",
+        "definition": "Terreno sin actividad productiva >2 años"
+      },
+      {
+        "eu": "NDVI indizea",
+        "es": "Índice NDVI",
+        "en": "NDVI Index",
+        "definition": "Normalized Difference Vegetation Index"
+      },
+      {
+        "eu": "Malda",
+        "es": "Pendiente",
+        "en": "Slope",
+        "definition": "Inclinación del terreno (%)"
+      },
+      {
+        "eu": "Nekazaritza lurra",
+        "es": "Suelo agrícola",
+        "en": "Agricultural land",
+        "definition": "Tierra destinada a cultivos"
+      },
+      {
+        "eu": "Baso lurra",
+        "es": "Suelo forestal",
+        "en": "Forest land",
+        "definition": "Tierra con cobertura arbórea"
+      },
+      {
+        "eu": "Sailkapena",
+        "es": "Clasificación",
+        "en": "Classification",
+        "definition": "Asignación categoría según criterios"
+      },
+      {
+        "eu": "Geolokalizazioa",
+        "es": "Geolocalización",
+        "en": "Geolocation",
+        "definition": "Posicionamiento geográfico preciso"
+      },
+      {
+        "eu": "Urruneko sentsorea",
+        "es": "Teledetección",
+        "en": "Remote sensing",
+        "definition": "Observación sin contacto físico"
+      },
+      {
+        "eu": "Katastro erreferentzia",
+        "es": "Referencia catastral",
+        "en": "Cadastral reference",
+        "definition": "Código único parcela catastro"
+      }
+    ]
+  },
+  "resources": {
+    "technical_documentation": [
+      {
+        "category": "GIS y Teledetección",
+        "links": [
+          {
+            "name": "QGIS Documentation",
+            "url": "https://docs.qgis.org/"
+          },
+          {
+            "name": "PostGIS Reference",
+            "url": "https://postgis.net/docs/"
+          },
+          {
+            "name": "Sentinel-2 User Handbook",
+            "url": "https://sentinel.esa.int/documents/"
+          },
+          {
+            "name": "GDAL/OGR Cookbook",
+            "url": "https://pcjericks.github.io/py-gdalogr-cookbook/"
+          }
+        ]
+      },
+      {
+        "category": "Frameworks",
+        "links": [
+          {
+            "name": "FastAPI Docs",
+            "url": "https://fastapi.tiangolo.com/"
+          },
+          {
+            "name": "Vue.js Guide",
+            "url": "https://vuejs.org/guide/"
+          },
+          {
+            "name": "MapLibre GL JS",
+            "url": "https://maplibre.org/maplibre-gl-js-docs/"
+          }
+        ]
+      },
+      {
+        "category": "Machine Learning",
+        "links": [
+          {
+            "name": "Scikit-learn User Guide",
+            "url": "https://scikit-learn.org/stable/user_guide.html"
+          },
+          {
+            "name": "Remote Sensing for Agriculture",
+            "url": "https://www.mdpi.com/journal/remotesensing/special_issues/RS_agriculture"
+          }
+        ]
+      }
+    ],
+    "open_data_sources": [
+      {
+        "category": "Catastro",
+        "sources": [
+          {
+            "name": "API REST",
+            "url": "https://ovc.catastro.meh.es/"
+          },
+          {
+            "name": "WFS Inspire",
+            "url": "https://www.catastro.minhap.es/webinspire/"
+          }
+        ]
+      },
+      {
+        "category": "Satélite",
+        "sources": [
+          {
+            "name": "Copernicus Open Access Hub",
+            "url": "https://scihub.copernicus.eu/"
+          },
+          {
+            "name": "USGS Earth Explorer",
+            "url": "https://earthexplorer.usgs.gov/"
+          }
+        ]
+      },
+      {
+        "category": "LiDAR",
+        "sources": [
+          {
+            "name": "CNIG",
+            "url": "https://centrodedescargas.cnig.es/"
+          },
+          {
+            "name": "PNOA",
+            "url": "https://pnoa.ign.es/"
+          }
+        ]
+      },
+      {
+        "category": "Cartografía",
+        "sources": [
+          {
+            "name": "GeoEuskadi",
+            "url": "https://www.geo.euskadi.eus/"
+          },
+          {
+            "name": "IDEE",
+            "url": "https://www.idee.es/"
+          }
+        ]
+      }
+    ],
+    "communities": [
+      {
+        "category": "Técnicas",
+        "links": [
+          {
+            "name": "OSGeo",
+            "url": "https://www.osgeo.org/"
+          },
+          {
+            "name": "GeoPython",
+            "url": "https://geopython.github.io/"
+          }
+        ]
+      },
+      {
+        "category": "Institucionales",
+        "links": [
+          {
+            "name": "REDIAM (Andalucía)",
+            "url": "https://www.juntadeandalucia.es/medioambiente/rediam"
+          },
+          {
+            "name": "ECOFOR",
+            "url": "https://ecofor.es/"
+          }
+        ]
+      }
+    ]
+  },
+  "weekly_tracking": {
+    "template": {
+      "week_number": null,
+      "date_range": "",
+      "technical": {
+        "milestones_completed": [],
+        "code_pushed": false,
+        "tests_passing": null,
+        "documentation_updated": false,
+        "blockers": []
+      },
+      "institutional": {
+        "contacts_made": 0,
+        "meetings_held": 0,
+        "feedback_received": [],
+        "next_steps": []
+      },
+      "decisions_made": [],
+      "risks_identified": [],
+      "notes": ""
+    },
+    "history": []
+  },
+  "naming_branding": {
+    "project_name_options": [
+      {
+        "name": "LurMap",
+        "rationale": "lur=tierra en euskera + map",
+        "domain_available": null
+      },
+      {
+        "name": "EkoLur",
+        "rationale": "ekosistema + lur",
+        "domain_available": null
+      },
+      {
+        "name": "AgriScan Euskadi",
+        "rationale": "Descriptivo, técnico",
+        "domain_available": null
+      },
+      {
+        "name": "TerraTrack",
+        "rationale": "Internacional, claro",
+        "domain_available": null
+      }
+    ],
+    "selected_name": null,
+    "visual_identity": {
+      "colors": {
+        "primary": "#2D5016",
+        "secondary": "#8B4513",
+        "accent": "#0051A5",
+        "neutral": "#78716C"
+      },
+      "typography": {
+        "headings": "Inter / Montserrat",
+        "body": "Open Sans / System UI",
+        "code": "Fira Code"
+      },
+      "logo": {
+        "concept": "Abstracción parcela + montaña",
+        "formats": ["SVG", "PNG"],
+        "variations": ["color", "bw", "favicon"]
+      }
+    },
+    "communication_channels": {
+      "official": {
+        "website": null,
+        "email": null,
+        "github": null
+      },
+      "social": {
+        "linkedin": null,
+        "twitter": null,
+        "mastodon": null
+      },
+      "documentation": {
+        "technical_docs": null,
+        "blog": null,
+        "youtube": null
+      }
+    }
+  },
+  "pilot_municipality": {
+    "name": null,
+    "selection_criteria": {
+      "parcel_count_range": "500-2000",
+      "cadastre_data_accessible": true,
+      "orthophotos_available": true
+    },
+    "data_collected": {
+      "municipal_boundary_shapefile": false,
+      "cadastral_references_list": false,
+      "sentinel2_coverage": null,
+      "lidar_availability": null
+    },
+    "status": "not_selected"
+  },
+  "funding_opportunities": {
+    "identified_grants": [],
+    "tracking_spreadsheet": null,
+    "deadlines": []
+  },
+  "meta": {
+    "json_version": "1.0.0",
+    "last_sync_with_markdown": "2025-10-19",
+    "usage_instructions": "Este JSON es la versión estructurada y ejecutable del PLAN_DIRECTOR.md. Actualizar ambos documentos en paralelo. Usar este JSON para: tracking automatizado, generación de reportes, integración con herramientas de gestión, cálculo de métricas.",
+    "update_frequency": "weekly",
+    "responsible": "institutional_lead"
+  }
+}
